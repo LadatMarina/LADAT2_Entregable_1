@@ -4,64 +4,61 @@ using UnityEngine;
 
 public class Frog : MonoBehaviour
 {
-    private Vector3Int moveDirection;
+    private Vector3 moveDirection;
 
     private Vector3Int upRightDirection = new Vector3Int(1, 1, 0);
     private Vector3Int upLeftDirection = new Vector3Int(-1, 1, 0);
 
     private float time = 0;
-    private float timeMax = 0.1f;
+    private int timeMax = 1;
+    
     void Start()
     {
+        //set default direction
         moveDirection = upRightDirection;
     }
 
     void Update()
     {
-        Timer2();
+        Timer();
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CanIMove(upRightDirection); //UR
+            CanIMove(upRightDirection); 
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CanIMove(upLeftDirection); //UL
+            CanIMove(upLeftDirection); 
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            CanIMove(-upRightDirection); //-UR
+            CanIMove(-upRightDirection); 
         }
+
         if (Input.GetKeyDown(KeyCode.D))
         {
-            CanIMove(-upLeftDirection); //-UL
+            CanIMove(-upLeftDirection); 
         }
     }
 
-    /*private IEnumerator Timer()
+    
+    //The Timer function moves moves the player every timeMax seconds
+    private void Timer()
     {
-        while (time >= 0)
-        {
-            time += 0.1f;
-            transform.Translate(moveDirection);
-            new WaitForSeconds(0.1f);
-        }
-        return null;
-    }*/
-
-    private void Timer2()
-    {
-        time = +Time.deltaTime;
-
+        time += Time.deltaTime;
         if(time >= timeMax)
         {
-            time -= timeMax; //reset time value
             transform.Translate(moveDirection);
+            time -= timeMax; //reset time value
+
         }
     } 
   
+    /*The CanIMove function checks if the previous direction
+     * is the oposit direction that the player wants to move at.
+     */
     private void CanIMove(Vector3Int directionToMove)
     {
         if(-moveDirection != directionToMove)
@@ -71,15 +68,15 @@ public class Frog : MonoBehaviour
         else
         {
             int alternativeMovement;
-            alternativeMovement = Random.Range(0, 1);
-            Debug.Log(alternativeMovement);
+            alternativeMovement = Random.Range(0, 2); 
+
             if(alternativeMovement == 0)
             {
-                moveDirection = new Vector3Int((moveDirection.x * -1),moveDirection.y,0);
+                moveDirection = new Vector3((moveDirection.x * -1),moveDirection.y,0);
             }
             if(alternativeMovement == 1)
             {
-                moveDirection = new Vector3Int((moveDirection.x), moveDirection.y * -1, 0);
+                moveDirection = new Vector3((moveDirection.x), moveDirection.y * -1, 0);
             }
         }
     }
