@@ -24,7 +24,7 @@ public class Frog : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CanIMove(upRightDirection); 
+            CanIMove(upRightDirection);
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
